@@ -291,12 +291,25 @@ var jumpSpeed = 17;
 
 Player.prototype.update = function(time, state, keys) {
   let xSpeed = 0;
-  if (keys.a) xSpeed -= playerXSpeed;
-  if (keys.d) xSpeed += playerXSpeed;
-  if (keys.A) xSpeed -= playerXSpeed;
-  if (keys.D) xSpeed += playerXSpeed;
-  if (keys.ArrowLeft) xSpeed -= playerXSpeed;
-  if (keys.ArrowRight) xSpeed += playerXSpeed;
+  console.log(keys.a, keys.A, keys.ArrowLeft);
+  switch (keys.a || keys.A || keys.ArrowLeft) {
+    case true:
+      xSpeed -= playerXSpeed
+      break;
+  }
+  switch (keys.d || keys.D || keys.ArrowRight) {
+    case true:
+      xSpeed += playerXSpeed
+      break;
+  }
+
+  // if (keys.a) xSpeed -= playerXSpeed;
+  // if (keys.d) xSpeed += playerXSpeed;
+  // if (keys.A) xSpeed -= playerXSpeed;
+  // if (keys.D) xSpeed += playerXSpeed;
+  // if (keys.ArrowLeft) xSpeed -= playerXSpeed;
+  // if (keys.ArrowRight) xSpeed += playerXSpeed;
+  
   let pos = this.pos;
   let movedX = pos.plus(new Vec(xSpeed * time, 0));
   if (!state.level.touches(movedX, this.size, "wall")) {
@@ -305,18 +318,50 @@ Player.prototype.update = function(time, state, keys) {
 
   let ySpeed = this.speed.y + time * gravity;
   let movedY = pos.plus(new Vec(0, ySpeed * time));
-  if (!state.level.touches(movedY, this.size, "wall")) {
-    pos = movedY;
-  } else if (keys.w && ySpeed > 0) {
-    ySpeed = -jumpSpeed;
-  } else if (keys.W && ySpeed > 0) {
-    ySpeed = -jumpSpeed;
-  } else if (keys.ArrowUp && ySpeed > 0) {
-    ySpeed = -jumpSpeed;
+  console.log(pos, movedY, ySpeed, 'перед брейком');
+  switch (!state.level.touches(movedY, this.size, "wall")) {
+    case true: 
+      pos = movedY;
+      console.log(pos, movedY, ySpeed, 'первый свич тру');
+      break;
+    case false:
+      console.log(pos, movedY, ySpeed, 'первый свич фолс')
+      switch((keys.w && ySpeed > 0 )||( keys.W && ySpeed > 0) || (keys.ArrowUp && ySpeed > 0)) {
+        case true:
+          console.log(pos, movedY,ySpeed, 'второй свич тру')
+          ySpeed = -jumpSpeed;
+          break;
+        default:
+          console.log(pos, movedY, ySpeed, 'второй свич фолс')
+          ySpeed = 0;
+          break;
+      }
+      break; 
   }
-    else {
-    ySpeed = 0;
-  }
+  // if (!state.level.touches(movedY, this.size, "wall")) {
+  //   pos = movedY;
+  // }
+  //     switch(keys.w && ySpeed > 0 || keys.W && ySpeed > 0 || keys.ArrowUp && ySpeed > 0) {
+  //     case true:
+  //     ySpeed = -jumpSpeed;
+  //     break; 
+  // }   switch(keys.w && ySpeed > 0 || keys.W && ySpeed > 0 || keys.ArrowUp && ySpeed > 0) {
+  //       case true:
+  //     ySpeed = 0; 
+  // }
+  // if (!state.level.touches(movedY, this.size, "wall")) {
+  //   pos = movedY;
+  // } 
+  //   else if (keys.w && ySpeed > 0) {
+  //   ySpeed = -jumpSpeed;
+  // } else if (keys.W && ySpeed > 0) {
+  //   ySpeed = -jumpSpeed;
+  // } else if (keys.ArrowUp && ySpeed > 0) {
+  //   ySpeed = -jumpSpeed;
+  // }
+  //   else {
+  //   ySpeed = 0;
+  // }
   return new Player(pos, new Vec(xSpeed, ySpeed));
 };
 
