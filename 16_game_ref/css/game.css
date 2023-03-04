@@ -38,6 +38,16 @@ body {
   background-color: darksalmon;
 }
 
+h1 {
+	text-align: center;
+	border: 3px solid #000;
+	width: 500px;
+	margin-left: 487px;
+	color:rgb(74, 10, 10);
+	border-radius: 20px;
+	padding: 10px;
+}
+
 .background    { background: rgb(52, 166, 251);
                  table-layout: fixed;
                  border-spacing: 0;   }
@@ -54,8 +64,8 @@ body {
   max-width: 600px;
   max-height: 450px;
   position: relative;
-  top: 100px;
-  left: 475px;
+  top: 50px;
+  left: 450px;
 
 }
 

@@ -307,11 +307,14 @@ Player.prototype.update = function(time, state, keys) {
 
   if (!state.level.touches(movedY, this.size, "wall")) {
     pos = movedY;
+  }
+  else if ((keys.w || keys.W || keys.ArrowUp) && ySpeed > 0) {
+    ySpeed = -jumpSpeed;  
   } 
-    else if ((keys.w && ySpeed > 0) || (keys.W && ySpeed > 0) || (keys.ArrowUp && ySpeed > 0)) {
-    ySpeed = -jumpSpeed;
-  } 
-    else {
+  // else if ((keys.w && ySpeed > 0) || (keys.W && ySpeed > 0) || (keys.ArrowUp && ySpeed > 0)) {
+  //   ySpeed = -jumpSpeed;
+  // } 
+  else {
     ySpeed = 0;
   }
   return new Player(pos, new Vec(xSpeed, ySpeed));
