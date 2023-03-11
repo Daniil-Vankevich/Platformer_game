@@ -1,12 +1,3 @@
-// Preloader
-
-// window.onload = function() {
-// 	let preloader = document.getElementById('preloader');
-// 	preloader.classList.add('hide-preloader');
-// 	setInterval(function() {
-// 				preloader.classList.add('preloader-hidden');
-// 	}, 990);
-// }
 
 
 // Code of Game
@@ -377,5 +368,5 @@ async function runGame(plans, Display) {
                                 Display);
     if (status == "won") level++;
   }
-  console.log("You've won!");
+  alert("You've won!");
 }
